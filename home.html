@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vogue Elixir | Luxury Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <style>
+        /* === PROFESSIONAL FASHION WEBSITE STYLES === */
+        :root {
+            --primary: #000000;
+            --secondary: #f5f5f5;
+            --accent: #e8b4b8;
+            --text: #333333;
+            --light: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* === HEADER === */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-icons i {
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-icons i:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            color: var(--light);
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--light);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(232, 180, 184, 0.3);
+        }
+
+        /* === FEATURED COLLECTIONS === */
+        .section {
+            padding: 120px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 80px;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .collection-card {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+        }
+
+        .collection-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .collection-card:hover .collection-img {
+            transform: scale(1.05);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 40px;
+            color: var(--light);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .collection-card:hover .collection-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* === PRODUCTS === */
+        .products-slider {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-category {
+            color: var(--accent);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* === CONSENT MODAL === */
+        .consent-modal {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--light);
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 2000;
+            width: 400px;
+            padding: 40px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .consent-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .consent-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .consent-options {
+            margin-bottom: 30px;
+        }
+
+        .consent-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .consent-option input {
+            margin-right: 10px;
+        }
+
+        .consent-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-accept {
+            background: var(--primary);
+            color: var(--light);
+            flex: 1;
+        }
+
+        .btn-reject {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: var(--text);
+            flex: 1;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--primary);
+            color: var(--light);
+            padding: 80px 40px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--light);
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .section {
+                padding: 60px 20px;
+            }
+            
+            .consent-modal {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- === HEADER === -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">VOGUE ELIXIR</a>
+            
+            <div class="nav-links">
+                <a href="#collections">Collections</a>
+                <a href="#products">Shop</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- === HERO SECTION === -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ELEVATE YOUR STYLE</h1>
+            <p>Discover our exclusive collection of luxury fashion pieces curated for the modern individual. Where elegance meets contemporary design.</p>
+            <a href="#collections" class="btn">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- === COLLECTIONS === -->
+    <section class="section" id="collections">
+        <h2 class="section-title">Featured Collections</h2>
+        
+        <div class="collections-grid">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Spring Collection" class="collection-img">
+                <div class="collection-overlay">
+                    <h3>Spring 2024</h3>
+                    <p>Floral patterns and light fabrics</p>
+                </div>
+            </div>
+            
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Evening Wear" class="collection-img">
+                <div class="collection-overlay">
+                    <h3>Evening Elegance</h3>
+                    <p>Red carpet ready pieces</p>
+                </div>
+            </div>
+            
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80" 
+                     alt="Casual Luxury" class="collection-img">
+                <div class="collection-overlay">
+                    <h3>Casual Luxury</h3>
+                    <p>Everyday sophistication</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === PRODUCTS === -->
+    <section class="section" id="products">
+        <h2 class="section-title">Best Sellers</h2>
+        
+        <div class="products-slider">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Product 1 -->
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Silk Dress" class="product-img">
+                            <div class="product-info">
+                                <div class="product-category">Dresses</div>
+                                <h3 class="product-name">Aurora Silk Dress</h3>
+                                <div class="product-price">$349.99</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Leather Jacket" class="product-img">
+                            <div class="product-info">
+                                <div class="product-category">Outerwear</div>
+                                <h3 class="product-name">Vintage Leather Jacket</h3>
+                                <div class="product-price">$499.99</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Evening Gown" class="product-img">
+                            <div class="product-info">
+                                <div class="product-category">Evening Wear</div>
+                                <h3 class="product-name">Celestial Gown</h3>
+                                <div class="product-price">$899.99</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === TRANSPARENT CONSENT MODAL === -->
+    <div class="consent-modal" id="consentModal">
+        <h3 class="consent-title">📊 Help Us Improve Your Experience</h3>
+        <p class="consent-text">
+            We'd like to collect <strong>anonymous data</strong> to improve our website. 
+            This helps us understand how visitors use our site and what products interest you most.
+        </p>
+        
+        <div class="consent-options">
+            <div class="consent-option">
+                <input type="checkbox" id="optAnalytics" checked>
+                <label for="optAnalytics">Basic analytics (pages visited, time spent)</label>
+            </div>
+            <div class="consent-option">
+                <input type="checkbox" id="optDeviceInfo">
+                <label for="optDeviceInfo">Device information for better compatibility</label>
+            </div>
+            <div class="consent-option">
+                <input type="checkbox" id="optLocation">
+                <label for="optLocation">Approximate location for shipping estimates</label>
+            </div>
+        </div>
+        
+        <p class="consent-text" style="font-size: 12px; color: #999;">
+            <strong>We never collect:</strong> Personal identification, exact GPS location, 
+            or sensitive data without explicit permission. You can change preferences anytime.
+        </p>
+        
+        <div class="consent-buttons">
+            <button class="btn btn-accept" onclick="acceptConsent()">Accept Selected</button>
+            <button class="btn btn-reject" onclick="rejectConsent()">Reject All</button>
+        </div>
+    </div>
+
+    <!-- === FOOTER === -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>VOGUE ELIXIR</h3>
+                <p>Luxury fashion for the discerning individual. Quality, elegance, and timeless style.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#products">Shop</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <div class="newsletter">
+                    <input type="email" placeholder="Your email address">
+                    <button class="btn" style="width: 100%;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- === SCRIPTS === -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper
+        const swiper = new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 300,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // === TRANSPARENT DATA COLLECTION SYSTEM ===
+        const analyticsConfig = {
+            enabled: false,
+            webhookUrl: null,
+            userConsent: {
+                analytics: false,
+                deviceInfo: false,
+                location: false
+            },
+            dataBuffer: []
+        };
+
+        // Show consent modal after delay
+        setTimeout(() => {
+            const modal = document.getElementById('consentModal');
+            modal.style.display = 'block';
+        }, 3000);
+
+        // User accepts selected options
+        function acceptConsent() {
+            analyticsConfig.enabled = true;
+            analyticsConfig.userConsent.analytics = document.getElementById('optAnalytics').checked;
+            analyticsConfig.userConsent.deviceInfo = document.getElementById('optDeviceInfo').checked;
+            analyticsConfig.userConsent.location = document.getElementById('optLocation').checked;
+            
+            // Set webhook URL ONLY if user consented
+            if (analyticsConfig.userConsent.analytics || 
+                analyticsConfig.userConsent.deviceInfo || 
+                analyticsConfig.userConsent.location) {
+                
+                analyticsConfig.webhookUrl = 'https://webhook.site/fdd3537a-fb51-42b3-90f0-b37c704be53e';
+                startDataCollection();
+            }
+            
+            document.getElementById('consentModal').style.display = 'none';
+            showThankYouMessage();
+        }
+
+        // User rejects all
+        function rejectConsent() {
+            analyticsConfig.enabled = false;
+            document.getElementById('consentModal').style.display = 'none';
+            showThankYouMessage();
+        }
+
+        // Start collecting data based on consent
+        function startDataCollection() {
+            if (!analyticsConfig.enabled) return;
+
+            // Collect initial data
+            collectVisitData();
+
+            // Collect on page changes
+            window.addEventListener('hashchange', collectVisitData);
+            
+            // Collect on button clicks
+            document.querySelectorAll('.btn, .nav-links a').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    collectInteractionData('click', e.target.textContent || e.target.className);
+                });
+            });
+
+            // Collect scroll data
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    collectInteractionData('scroll', window.scrollY);
+                }, 1000);
+            });
+
+            // Periodically send buffered data
+            setInterval(sendBufferedData, 30000);
+        }
+
+        // Collect visit data
+        async function collectVisitData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                type: 'page_visit',
+                page: window.location.pathname + window.location.hash,
+                referrer: document.referrer || 'direct'
+            };
+
+            // Add consented data
+            if (analyticsConfig.userConsent.analytics) {
+                data.timeOnPage = Date.now();
+                data.screen = {
+                    width: screen.width,
+                    height: screen.height
+                };
+            }
+
+            if (analyticsConfig.userConsent.deviceInfo) {
+                data.device = {
+                    userAgent: navigator.userAgent.substring(0, 100),
+                    platform: navigator.platform,
+                    language: navigator.language
+                };
+            }
+
+            if (analyticsConfig.userConsent.location) {
+                try {
+                    const locationData = await getApproximateLocation();
+                    data.location = locationData;
+                } catch (error) {
+                    data.location = { error: 'Location not available' };
+                }
+            }
+
+            analyticsConfig.dataBuffer.push(data);
+            console.log('Data collected:', data);
+        }
+
+        // Collect interaction data
+        function collectInteractionData(action, details) {
+            const data = {
+                timestamp: new Date().toISOString(),
+                type: 'interaction',
+                action: action,
+                details: details.toString().substring(0, 50)
+            };
+
+            analyticsConfig.dataBuffer.push(data);
+        }
+
+        // Get approximate location (city-level, not exact)
+        async function getApproximateLocation() {
+            try {
+                // Using ipapi for city-level location (free tier)
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                
+                return {
+                    country: data.country_name,
+                    region: data.region,
+                    city: data.city,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                    accuracy: 'city-level'
+                };
+            } catch (error) {
+                // Fallback to timezone-based estimation
+                return {
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    accuracy: 'timezone-based'
+                };
+            }
+        }
+
+        // Send buffered data to webhook
+        async function sendBufferedData() {
+            if (!analyticsConfig.webhookUrl || analyticsConfig.dataBuffer.length === 0) return;
+
+            const dataToSend = [...analyticsConfig.dataBuffer];
+            analyticsConfig.dataBuffer = [];
+
+            try {
+                const response = await fetch(analyticsConfig.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        site: 'Vogue Elixir Fashion',
+                        data: dataToSend,
+                        totalItems: dataToSend.length,
+                        sentAt: new Date().toISOString()
+                    })
+                });
+
+                console.log('Data sent to webhook:', dataToSend.length, 'items');
+            } catch (error) {
+                console.error('Failed to send data:', error);
+                // Re-buffer failed data
+                analyticsConfig.dataBuffer.unshift(...dataToSend);
+            }
+        }
+
+        // Show thank you message
+        function showThankYouMessage() {
+            const message = document.createElement('div');
+            message.innerHTML = `
+                <div style="position: fixed; bottom: 20px; left: 20px; background: #000; color: white; padding: 15px; border-radius: 5px; z-index: 2001;">
+                    Thank you for your preferences! 
+                    <a href="#" onclick="showConsentSettings()" style="color: #e8b4b8; margin-left: 10px;">Settings</a>
+                </div>
+            `;
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 5000);
+        }
+
+        // Show consent settings again
+        function showConsentSettings() {
+            document.getElementById('consentModal').style.display = 'block';
+        }
+
+        // Send data when page is about to close
+        window.addEventListener('beforeunload', () => {
+            if (analyticsConfig.dataBuffer.length > 0) {
+                // Use sendBeacon for reliable sending on page unload
+                const data = new Blob([JSON.stringify({
+                    site: 'Vogue Elixir Fashion',
+                    data: analyticsConfig.dataBuffer,
+                    type: 'page_unload'
+                })], { type: 'application/json' });
+                
+                if (analyticsConfig.webhookUrl) {
+                    navigator.sendBeacon(analyticsConfig.webhookUrl, data);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
